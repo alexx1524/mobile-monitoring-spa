@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { MonitoringService } from '../../../../../generated-api/services/monitoring.service';
 import { MonitoringData } from '../../../../../generated-api/models/monitoring-data';
-import { untilDestroyed } from "@ngneat/until-destroy";
-
 @Component({
   selector: 'app-monitoring',
   templateUrl: './monitoring.component.html',
@@ -24,7 +22,6 @@ export class MonitoringComponent implements OnInit {
   ngOnInit(): void {
     this.monitoringService
       .getMonitoringList()
-      .pipe(untilDestroyed(this))
       .subscribe(
         (data: MonitoringData[]) => {
           try {
