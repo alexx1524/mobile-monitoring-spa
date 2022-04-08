@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { MonitoringService } from '../../../../../generated-api/services/monitoring.service';
 import { MonitoringData } from '../../../../../generated-api/models/monitoring-data';
-import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import * as moment from 'moment';
 
 @UntilDestroy()
@@ -21,7 +21,7 @@ export class MonitoringComponent implements OnInit {
     'os'
   ];
 
-  constructor(private monitoringService : MonitoringService) { }
+  constructor(private monitoringService: MonitoringService) { }
 
   ngOnInit(): void {
     this.fetchMonitoringData();
@@ -37,9 +37,8 @@ export class MonitoringComponent implements OnInit {
             if (data && data.length) {
               this.dataSource = data.map((rawEntity) => Object.assign(new MonitoringDataEntity(), rawEntity));
             }
-          }
-          catch (e) {
-            console.error(e)
+          } catch (e) {
+            console.error(e);
           }
         });
   }
