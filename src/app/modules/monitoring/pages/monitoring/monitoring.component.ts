@@ -3,6 +3,7 @@ import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { MonitoringService } from '../../../../../generated-api/services/monitoring.service';
 import { MonitoringData } from '../../../../../generated-api/models/monitoring-data';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import * as moment from 'moment';
 
 @UntilDestroy()
 @Component({
@@ -41,5 +42,9 @@ export class MonitoringComponent implements OnInit {
             console.error(e)
           }
         });
+  }
+
+  public getUpdatedDate(item: MonitoringDataEntity): string {
+    return moment(item.updatedDate ?? item.createdDate).toDate().toLocaleString();
   }
 }

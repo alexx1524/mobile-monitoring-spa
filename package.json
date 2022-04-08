@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@ngneat/until-destroy": "^9.0.1",
+    "moment": "^2.29.2",
     "ng-swagger-gen": "^2.3.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
