@@ -6,10 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "swagger:update": "node_modules\\.bin\\ng-swagger-gen --config swagger-gen.config.json"
   },
   "private": true,
   "dependencies": {
+    "@angular-eslint/eslint-plugin": "^13.2.0",
     "@angular/animations": "~13.3.0",
     "@angular/cdk": "^13.3.2",
     "@angular/common": "~13.3.0",
@@ -20,6 +22,13 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@ngneat/until-destroy": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-rxjs": "^5.0.2",
+    "eslint-plugin-sonarjs": "^0.13.0",
+    "moment": "^2.29.2",
+    "ng-swagger-gen": "^2.3.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -30,6 +39,7 @@
     "@angular/compiler-cli": "~13.3.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "eslint": "^8.12.0",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
