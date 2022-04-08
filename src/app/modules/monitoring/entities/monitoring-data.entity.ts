@@ -1,4 +1,4 @@
-import { MonitoringData } from "src/generated-api/models";
+import { MonitoringData } from 'src/generated-api/models';
 
 export class MonitoringDataEntity implements MonitoringData {
   createdDate?: string;

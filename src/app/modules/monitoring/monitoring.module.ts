@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MonitoringRoutingModule } from './monitoring-routing.module';
 import { MonitoringComponent } from './pages/monitoring/monitoring.component';
-import {MatTableModule} from "@angular/material/table";
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
