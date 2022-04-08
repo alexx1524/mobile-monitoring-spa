@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { MonitoringService } from '../../../../../generated-api/services/monitoring.service';
 import { MonitoringData } from '../../../../../generated-api/models/monitoring-data';
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+
+@UntilDestroy()
 @Component({
   selector: 'app-monitoring',
   templateUrl: './monitoring.component.html',
@@ -20,8 +23,13 @@ export class MonitoringComponent implements OnInit {
   constructor(private monitoringService : MonitoringService) { }
 
   ngOnInit(): void {
+    this.fetchMonitoringData();
+  }
+
+  private fetchMonitoringData() {
     this.monitoringService
       .getMonitoringList()
+      .pipe(untilDestroyed(this))
       .subscribe(
         (data: MonitoringData[]) => {
           try {
@@ -32,7 +40,6 @@ export class MonitoringComponent implements OnInit {
           catch (e) {
             console.error(e)
           }
-    });
+        });
   }
-
 }
