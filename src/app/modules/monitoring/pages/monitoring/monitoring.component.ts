@@ -34,12 +34,16 @@ export class MonitoringComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // При изменении сортировки нужно переключить пагинацию на первую станицу
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.sort.sortChange
+      .pipe(untilDestroyed(this))
+      .subscribe(() => (this.paginator.pageIndex = 0));
 
     // при изменении сортировки или страницы в пагинатор нужно запрашивать данные с сервера
-    merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
-      this.fetchMonitoringData();
-    });
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.fetchMonitoringData();
+      });
 
     this.fetchMonitoringData();
   }
