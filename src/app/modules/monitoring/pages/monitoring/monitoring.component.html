@@ -1,25 +1,30 @@
 <div class="page__monitoring">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+
   <table mat-table [dataSource]='dataSource' matSort matSortActive='nodeName' matSortDirection='asc' matSortDisableClear>
     <!-- Full name Column -->
-    <ng-container matColumnDef="nodeName">
+    <ng-container matColumnDef="NodeName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Имя узла </th>
       <td mat-cell *matCellDef="let item"> {{item.nodeName}} </td>
     </ng-container>
 
     <!-- googleEmail Column -->
-    <ng-container matColumnDef="updatedDate">
+    <ng-container matColumnDef="UpdatedDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата последней статистики </th>
       <td mat-cell *matCellDef="let item"> {{getUpdatedDate(item)}} </td>
     </ng-container>
 
     <!-- Role name Column -->
-    <ng-container matColumnDef="clientVersion">
+    <ng-container matColumnDef="Version">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Версия Client </th>
       <td mat-cell *matCellDef="let item"> {{item.version}} </td>
     </ng-container>
 
     <!-- State name Column -->
-    <ng-container matColumnDef="os">
+    <ng-container matColumnDef="OperatingSystem">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Тип устройства </th>
       <td mat-cell *matCellDef="let item"> {{item.operatingSystem}} </td>
     </ng-container>
@@ -27,4 +32,10 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [length]="resultsLength"
+                 [pageSizeOptions]="[10, 20, 50, 100]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>
