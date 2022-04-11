@@ -4,27 +4,27 @@
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
 
-  <table mat-table [dataSource]='dataSource' matSort matSortActive='nodeName' matSortDirection='asc' matSortDisableClear>
+  <table mat-table [dataSource]='dataSource' matSort matSortActive='nodename' matSortDirection='asc' matSortDisableClear>
     <!-- Full name Column -->
-    <ng-container matColumnDef="NodeName">
+    <ng-container matColumnDef="nodename">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Имя узла </th>
       <td mat-cell *matCellDef="let item"> {{item.nodeName}} </td>
     </ng-container>
 
     <!-- googleEmail Column -->
-    <ng-container matColumnDef="UpdatedDate">
+    <ng-container matColumnDef="updateddate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата последней статистики </th>
       <td mat-cell *matCellDef="let item"> {{getUpdatedDate(item)}} </td>
     </ng-container>
 
     <!-- Role name Column -->
-    <ng-container matColumnDef="Version">
+    <ng-container matColumnDef="version">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Версия Client </th>
       <td mat-cell *matCellDef="let item"> {{item.version}} </td>
     </ng-container>
 
     <!-- State name Column -->
-    <ng-container matColumnDef="OperatingSystem">
+    <ng-container matColumnDef="operatingsystem">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Тип устройства </th>
       <td mat-cell *matCellDef="let item"> {{item.operatingSystem}} </td>
     </ng-container>

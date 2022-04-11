@@ -18,10 +18,10 @@ export class MonitoringComponent implements AfterViewInit {
   dataSource: MonitoringDataEntity[] = [];
 
   displayedColumns: string[] = [
-    'NodeName',
-    'UpdatedDate',
-    'Version',
-    'OperatingSystem'
+    'nodename',
+    'updateddate',
+    'version',
+    'operatingsystem'
   ];
 
   resultsLength = 0;
@@ -53,7 +53,7 @@ export class MonitoringComponent implements AfterViewInit {
       pageNumber: this.paginator.pageIndex + 1,
       pageSize: this.paginator.pageSize,
       sorting: {
-        fieldName: this.sort.active.replace(/^\w/, (c) => c.toUpperCase()),
+        fieldName: this.sort.active,
         direction: this.sort.direction === 'asc' ? 0 : 1
       }
     };
