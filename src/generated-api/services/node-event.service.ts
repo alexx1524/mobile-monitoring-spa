@@ -12,7 +12,7 @@ import { NodeEvent } from '../models/node-event';
   providedIn: 'root',
 })
 class NodeEventService extends __BaseService {
-  static readonly postEventPath = '/event';
+  static readonly postEventNodeIdPath = '/event/{nodeId}';
   static readonly getEventBynodeNodeIdPath = '/event/bynode/{nodeId}';
 
   constructor(
@@ -24,16 +24,21 @@ class NodeEventService extends __BaseService {
 
   /**
    * Добавление ивентов ноды (устройства).
-   * @param body Список ивентов от ноды.
+   * @param params The `NodeEventService.PostEventNodeIdParams` containing the following parameters:
+   *
+   * - `nodeId`: Идентификатор ноды.
+   *
+   * - `body`: Список ивентов от ноды.
    */
-  postEventResponse(body?: Array<NodeEvent>): __Observable<__StrictHttpResponse<null>> {
+  postEventNodeIdResponse(params: NodeEventService.PostEventNodeIdParams): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = body;
+
+    __body = params.body;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/event`,
+      this.rootUrl + `/event/${encodeURIComponent(String(params.nodeId))}`,
       __body,
       {
         headers: __headers,
@@ -50,10 +55,14 @@ class NodeEventService extends __BaseService {
   }
   /**
    * Добавление ивентов ноды (устройства).
-   * @param body Список ивентов от ноды.
+   * @param params The `NodeEventService.PostEventNodeIdParams` containing the following parameters:
+   *
+   * - `nodeId`: Идентификатор ноды.
+   *
+   * - `body`: Список ивентов от ноды.
    */
-  postEvent(body?: Array<NodeEvent>): __Observable<null> {
-    return this.postEventResponse(body).pipe(
+  postEventNodeId(params: NodeEventService.PostEventNodeIdParams): __Observable<null> {
+    return this.postEventNodeIdResponse(params).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -98,6 +107,22 @@ class NodeEventService extends __BaseService {
 }
 
 module NodeEventService {
+
+  /**
+   * Parameters for postEventNodeId
+   */
+  export interface PostEventNodeIdParams {
+
+    /**
+     * Идентификатор ноды.
+     */
+    nodeId: string;
+
+    /**
+     * Список ивентов от ноды.
+     */
+    body?: Array<NodeEvent>;
+  }
 }
 
-export { NodeEventService };
+export { NodeEventService }
