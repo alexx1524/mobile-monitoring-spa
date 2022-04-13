@@ -3,8 +3,8 @@ import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import * as moment from 'moment';
 import { NodeEventEntity } from '../../entities/node-event.entity';
 import { NodeEventService } from '../../../../../generated-api/services/node-event.service';
-import { NodeEvent } from '../../../../../generated-api/models/node-event';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { map } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -46,14 +46,13 @@ export class NodeEventsComponent {
   private fetchNodeEvents(nodeId: string): NodeEventEntity[] {
     this.eventsService.getEventBynodeNodeId(nodeId)
       .pipe(untilDestroyed(this))
-      .subscribe(
-        (response: NodeEvent[]) => {
-          this.dataSource = [];
-          if (response && response.length) {
-            this.dataSource = response.map((rawEntity) => Object.assign(new NodeEventEntity(), rawEntity));
-          }
+      .pipe(
+        map((value) => value.map((rawEntity) => Object.assign(new NodeEventEntity(), rawEntity)))
+      )
+      .subscribe(response => {
+          this.dataSource = response;
         },
-        (errors) => {
+        errors => {
           console.error(errors);
         }
       );
