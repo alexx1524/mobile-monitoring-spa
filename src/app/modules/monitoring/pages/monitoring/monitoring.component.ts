@@ -20,12 +20,11 @@ export class MonitoringComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'nodename',
     'updateddate',
-    'version',
-    'operatingsystem'
   ];
 
   resultsLength = 0;
   isLoadingResults = true;
+  selectedNode: MonitoringDataEntity | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

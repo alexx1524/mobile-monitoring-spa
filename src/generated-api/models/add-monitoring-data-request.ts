@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 /**
- * Запрос на добавление данных мониторинга
+ * Запрос на добавление данных мониторинга.
  */
 export interface AddMonitoringDataRequest {
 
@@ -11,17 +11,17 @@ export interface AddMonitoringDataRequest {
   id?: string;
 
   /**
-   * Имя узла / пользователя
+   * Имя узла / пользователя.
    */
   nodeName?: string;
 
   /**
-   * Наименование операционной системы
+   * Наименование операционной системы.
    */
   operatingSystem?: string;
 
   /**
-   * Версия клиента
+   * Версия клиента.
    */
   version?: string;
 }

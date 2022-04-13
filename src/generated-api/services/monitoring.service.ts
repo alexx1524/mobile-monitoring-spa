@@ -29,7 +29,7 @@ class MonitoringService extends __BaseService {
 
   /**
    * Создание или обновление мониторинговых данных для устройства.
-   * @param body Запрос на добавление/обновление данных мониторинга
+   * @param body Запрос на добавление/обновление данных мониторинга.
    */
   postMonitoringResponse(body?: AddMonitoringDataRequest): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
@@ -55,7 +55,7 @@ class MonitoringService extends __BaseService {
   }
   /**
    * Создание или обновление мониторинговых данных для устройства.
-   * @param body Запрос на добавление/обновление данных мониторинга
+   * @param body Запрос на добавление/обновление данных мониторинга.
    */
   postMonitoring(body?: AddMonitoringDataRequest): __Observable<null> {
     return this.postMonitoringResponse(body).pipe(
@@ -64,8 +64,8 @@ class MonitoringService extends __BaseService {
   }
 
   /**
-   * Получение последних мониторинговых данных по идентификатору устройства
-   * @param id Идентификатор устройства
+   * Получение последних мониторинговых данных по идентификатору устройства.
+   * @param id Идентификатор устройства.
    * @return Success
    */
   getMonitoringIdResponse(id: string): __Observable<__StrictHttpResponse<MonitoringData>> {
@@ -91,8 +91,8 @@ class MonitoringService extends __BaseService {
     );
   }
   /**
-   * Получение последних мониторинговых данных по идентификатору устройства
-   * @param id Идентификатор устройства
+   * Получение последних мониторинговых данных по идентификатору устройства.
+   * @param id Идентификатор устройства.
    * @return Success
    */
   getMonitoringId(id: string): __Observable<MonitoringData> {
@@ -102,7 +102,7 @@ class MonitoringService extends __BaseService {
   }
 
   /**
-   * Получение всех мониторинговых данных
+   * Получение всех мониторинговых данных.
    * @return Success
    */
   getMonitoringListResponse(): __Observable<__StrictHttpResponse<Array<MonitoringData>>> {
@@ -127,7 +127,7 @@ class MonitoringService extends __BaseService {
     );
   }
   /**
-   * Получение всех мониторинговых данных
+   * Получение всех мониторинговых данных.
    * @return Success
    */
   getMonitoringList(): __Observable<Array<MonitoringData>> {
@@ -137,8 +137,8 @@ class MonitoringService extends __BaseService {
   }
 
   /**
-   * Получение мониторинговых данных по указанным критериям
-   * @param body undefined
+   * Получение мониторинговых данных по указанным критериям.
+   * @param body Критерии поиска.
    * @return Success
    */
   postMonitoringSearchResponse(body?: MonitoringSearchCriteria): __Observable<__StrictHttpResponse<MonitoringDataSearchResult>> {
@@ -164,8 +164,8 @@ class MonitoringService extends __BaseService {
     );
   }
   /**
-   * Получение мониторинговых данных по указанным критериям
-   * @param body undefined
+   * Получение мониторинговых данных по указанным критериям.
+   * @param body Критерии поиска.
    * @return Success
    */
   postMonitoringSearch(body?: MonitoringSearchCriteria): __Observable<MonitoringDataSearchResult> {

@@ -3,23 +3,27 @@ import { CommonModule } from '@angular/common';
 
 import { MonitoringRoutingModule } from './monitoring-routing.module';
 import { MonitoringComponent } from './pages/monitoring/monitoring.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from "@angular/material/sort";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NodeeventsComponent } from './Components/nodeevents/nodeevents.component';
 
 
 @NgModule({
   declarations: [
-    MonitoringComponent
+    MonitoringComponent,
+    NodeeventsComponent
   ],
-  imports: [
-    CommonModule,
-    MonitoringRoutingModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule
-  ]
+    imports: [
+        CommonModule,
+        MonitoringRoutingModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatSidenavModule
+    ]
 })
 export class MonitoringModule { }

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
 import { MonitoringService } from './services/monitoring.service';
+import { NodeEventService } from './services/node-event.service';
 
 /**
  * Provider for all Api services, plus ApiConfiguration
@@ -18,7 +19,8 @@ import { MonitoringService } from './services/monitoring.service';
   declarations: [],
   providers: [
     ApiConfiguration,
-    MonitoringService
+    MonitoringService,
+    NodeEventService
   ],
 })
 export class ApiModule {
