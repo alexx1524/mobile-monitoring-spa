@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
-import {MonitoringDataEntity} from '../../entities/monitoring-data.entity';
+import { Component, Input} from '@angular/core';
+import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import * as moment from 'moment';
 import { NodeEventEntity } from '../../entities/node-event.entity';
 import { NodeEventService } from '../../../../../generated-api/services/node-event.service';
 import { NodeEvent } from '../../../../../generated-api/models/node-event';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
@@ -12,7 +12,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
   templateUrl: './nodeevents.component.html',
   styleUrls: ['./nodeevents.component.scss']
 })
-export class NodeeventsComponent {
+export class NodeEventsComponent {
   dataSource: NodeEventEntity[] = [];
   node: MonitoringDataEntity | null = null;
 
