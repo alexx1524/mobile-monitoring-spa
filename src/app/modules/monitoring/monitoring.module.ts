@@ -8,7 +8,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NodeEventsComponent } from './components/nodeevents/nodeevents.component';
+import { NodeEventsComponent } from './components/node-events/node-events.component';
 
 
 @NgModule({

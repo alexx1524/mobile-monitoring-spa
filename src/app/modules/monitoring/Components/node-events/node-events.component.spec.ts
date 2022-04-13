@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NodeEventsComponent } from './nodeevents.component';
+import { NodeEventsComponent } from './node-events.component';
 
 describe('NodeEventsComponent', () => {
   let component: NodeEventsComponent;

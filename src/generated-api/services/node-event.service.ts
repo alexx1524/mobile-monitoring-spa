@@ -100,4 +100,4 @@ class NodeEventService extends __BaseService {
 module NodeEventService {
 }
 
-export { NodeEventService }
+export { NodeEventService };

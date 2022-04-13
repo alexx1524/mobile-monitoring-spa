@@ -8,9 +8,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-nodeevents',
-  templateUrl: './nodeevents.component.html',
-  styleUrls: ['./nodeevents.component.scss']
+  selector: 'app-node-events',
+  templateUrl: './node-events.component.html',
+  styleUrls: ['./node-events.component.scss']
 })
 export class NodeEventsComponent {
   dataSource: NodeEventEntity[] = [];
