@@ -13,7 +13,7 @@
     <!-- date Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
-      <td mat-cell *matCellDef="let item"> {{getUpdatedDate(item)}} </td>
+      <td mat-cell *matCellDef="let item"> {{item.Date}} </td>
     </ng-container>
 
     <!-- name Column -->
@@ -25,7 +25,7 @@
     <!-- description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Описание события </th>
-      <td mat-cell *matCellDef="let item"> {{getDescription(item.name)}} </td>
+      <td mat-cell *matCellDef="let item"> {{item.Description}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

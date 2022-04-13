@@ -1,6 +1,5 @@
 import { Component, Input} from '@angular/core';
 import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
-import * as moment from 'moment';
 import { NodeEventEntity } from '../../entities/node-event.entity';
 import { NodeEventService } from '../../../../../generated-api/services/node-event.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -35,20 +34,11 @@ export class NodeEventsComponent {
   constructor(private eventsService: NodeEventService) {
   }
 
-  public getUpdatedDate(item: NodeEventEntity): string {
-    return moment(item.date).toDate().toLocaleString();
-  }
-
-  public getDescription(name: string): string {
-    return 'Какое-то описание события';
-  }
-
   private fetchNodeEvents(nodeId: string): NodeEventEntity[] {
     this.eventsService.getEventBynodeNodeId(nodeId)
       .pipe(untilDestroyed(this))
-      .pipe(
-        map((value) => value.map((rawEntity) => Object.assign(new NodeEventEntity(), rawEntity)))
-      )
+      .pipe(map((value) =>
+        value.map<NodeEventEntity>((rawEntity) => new NodeEventEntity(rawEntity.date, rawEntity.name))))
       .subscribe(response => {
           this.dataSource = response;
         },
