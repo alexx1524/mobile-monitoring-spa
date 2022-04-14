@@ -1,0 +1,34 @@
+<div *ngIf="node" class="component-node-events">
+  <h1>{{node.nodeName}}</h1>
+  <div>
+    <span>Идентификатор:</span>
+    <span>{{node.id}}</span>
+  </div>
+  <div>
+    <span>Версия ПО VipNet Client:</span>
+    <span>{{node.version}}</span>
+  </div>
+  <h3>События VipNet Client</h3>
+  <table mat-table [dataSource]='dataSource' matSort matSortActive='nodename' matSortDirection='asc' matSortDisableClear>
+    <!-- date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+      <td mat-cell *matCellDef="let item"> {{item.Date}} </td>
+    </ng-container>
+
+    <!-- name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Событие </th>
+      <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+    </ng-container>
+
+    <!-- description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Описание события </th>
+      <td mat-cell *matCellDef="let item"> {{item.Description}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -1,4 +1,9 @@
-.page__monitoring {
+.page_monitoring {
+  height: 100%;
+
+  .drawer-container {
+    height: 100%;
+  }
 
   .example-loading-shade {
     position: absolute;
@@ -15,7 +20,17 @@
 
   .mat-table {
     width: 100%;
-    max-height: 500px;
+    height: auto;
   }
 
+  .sidenav-content {
+    height: auto;
+    align-items: start;
+    justify-content: start;
+  }
+
+  .right-panel {
+    height: auto;
+    width: 75%;
+  }
 }
