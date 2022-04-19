@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-rxjs": "^5.0.2",
     "eslint-plugin-sonarjs": "^0.13.0",
+    "http-server": "^14.1.0",
     "moment": "^2.29.2",
     "ng-swagger-gen": "^2.3.1",
     "rxjs": "~7.5.0",
