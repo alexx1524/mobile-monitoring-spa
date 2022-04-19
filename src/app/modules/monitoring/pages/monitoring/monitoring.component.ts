@@ -1,12 +1,14 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { MonitoringService } from '../../../../../generated-api/services/monitoring.service';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import * as moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { merge } from 'rxjs';
+import { BehaviorSubject, filter, interval, merge, Subject, takeUntil } from 'rxjs';
 import { MonitoringDataSearchResult, MonitoringSearchCriteria } from '../../../../../generated-api/models';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+
 
 @UntilDestroy()
 @Component({
@@ -14,7 +16,10 @@ import { MonitoringDataSearchResult, MonitoringSearchCriteria } from '../../../.
   templateUrl: './monitoring.component.html',
   styleUrls: ['./monitoring.component.scss']
 })
-export class MonitoringComponent implements AfterViewInit {
+export class MonitoringComponent implements AfterViewInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  autoUpdate$ = new BehaviorSubject(true);
+
   dataSource: MonitoringDataEntity[] = [];
 
   displayedColumns: string[] = [
@@ -34,13 +39,21 @@ export class MonitoringComponent implements AfterViewInit {
   ngAfterViewInit() {
     // При изменении сортировки нужно переключить пагинацию на первую станицу
     this.sort.sortChange
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => (this.paginator.pageIndex = 0));
 
     // при изменении сортировки или страницы в пагинатор нужно запрашивать данные с сервера
     merge(this.sort.sortChange, this.paginator.page)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        this.fetchMonitoringData();
+      });
+
+    // подписка на периодическое обновление
+    interval(30000)
+      .pipe(filter(_ => this.autoUpdate$.value))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(_ => {
         this.fetchMonitoringData();
       });
 
@@ -60,7 +73,7 @@ export class MonitoringComponent implements AfterViewInit {
     this.isLoadingResults = true;
     this.monitoringService
       .postMonitoringSearch(searchCriteria)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (response: MonitoringDataSearchResult) => {
 
@@ -84,5 +97,14 @@ export class MonitoringComponent implements AfterViewInit {
 
   public getUpdatedDate(item: MonitoringDataEntity): string {
     return moment(item.updatedDate ?? item.createdDate).toDate().toLocaleString();
+  }
+
+  public autoUpdatedChanged(event: MatCheckboxChange): void {
+    this.autoUpdate$.next(event.checked);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -1,4 +1,13 @@
 <div class="page_monitoring">
+  <mat-toolbar>
+      <span style="width: 100%">Узлы</span>
+      <mat-checkbox
+        (change)="autoUpdatedChanged($event)"
+        [checked]="(autoUpdate$ | async) ?? false"
+      >
+        Автообновление
+      </mat-checkbox>
+  </mat-toolbar>
   <mat-drawer-container class="drawer-container">
     <mat-drawer-content class="sidenav-content">
       <div class="example-loading-shade"

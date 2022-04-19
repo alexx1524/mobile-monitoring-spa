@@ -9,6 +9,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeEventsComponent } from './components/node-events/node-events.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -16,14 +18,16 @@ import { NodeEventsComponent } from './components/node-events/node-events.compon
     MonitoringComponent,
     NodeEventsComponent
   ],
-    imports: [
-        CommonModule,
-        MonitoringRoutingModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        MatSidenavModule
-    ]
+  imports: [
+    CommonModule,
+    MonitoringRoutingModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+  ]
 })
 export class MonitoringModule { }
