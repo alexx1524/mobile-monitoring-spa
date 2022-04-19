@@ -5,7 +5,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import * as moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { BehaviorSubject, filter, interval, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { MonitoringData } from '../../../../../generated-api/models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as signalR from '@microsoft/signalr';

@@ -3,7 +3,7 @@ import { MonitoringDataEntity } from '../../entities/monitoring-data.entity';
 import { NodeEventEntity } from '../../entities/node-event.entity';
 import { NodeEventService } from '../../../../../generated-api/services/node-event.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {map, switchMap} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { BehaviorSubject, empty, filter, interval, Observable, Subject, takeUntil} from 'rxjs';
 
