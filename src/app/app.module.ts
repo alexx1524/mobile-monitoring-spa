@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MonitoringModule } from './modules/monitoring/monitoring.module';
 import { ApiModule } from '../generated-api/api.module';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { ApiModule } from '../generated-api/api.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MonitoringModule,
-    ApiModule.forRoot({ rootUrl: 'https://localhost:7184' }),
+    ApiModule.forRoot({ rootUrl: environment.baseUrl }),
   ],
   providers: [],
   bootstrap: [AppComponent]

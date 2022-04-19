@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:7184/',
-  nodeEventsFetchingInterval: 30000,
+  baseUrl: 'https://localhost:7184',
+  nodeEventsFetchingInterval: 3000,
 };
 
 /*

@@ -38,7 +38,8 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private monitoringService: MonitoringService) { }
+  constructor(private monitoringService: MonitoringService) {
+  }
 
   ngAfterViewInit() {
     this.fetchMonitoringData();
@@ -73,7 +74,7 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.signalrConnection?.stop().then(() =>{
+    this.signalrConnection?.stop().then(() => {
       // eslint-disable-next-line no-console
       console.info('SignalR connection is stopped');
     });
@@ -95,7 +96,7 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
     });
 
     this.signalrConnection.on('onNewMonitoringDataAdded', (data: MonitoringData) => {
-      const entity = {...data} as MonitoringDataEntity;
+      const entity = { ...data } as MonitoringDataEntity;
       this.dataSource.data.push(entity);
       this.dataSource.data = [...this.dataSource.data];
     });
