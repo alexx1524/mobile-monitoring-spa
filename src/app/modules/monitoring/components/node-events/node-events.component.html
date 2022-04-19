@@ -1,4 +1,13 @@
 <div *ngIf="node" class="component-node-events">
+  <mat-toolbar>
+    <span style="width: 100%">События узла</span>
+    <mat-checkbox
+      (change)="autoUpdatedChanged($event)"
+      [checked]="(autoUpdate$ | async) ?? false"
+    >
+      Автообновление событий
+    </mat-checkbox>
+  </mat-toolbar>
   <h1>{{node.nodeName}}</h1>
   <div>
     <span>Идентификатор:</span>
