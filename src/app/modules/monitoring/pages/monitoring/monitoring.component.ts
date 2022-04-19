@@ -11,6 +11,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as signalR from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
+import { HubConnection } from '@microsoft/signalr';
 
 
 @UntilDestroy()
@@ -23,6 +24,7 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   autoUpdate$ = new BehaviorSubject(true);
   dataSource = new MatTableDataSource<MonitoringDataEntity>();
+  signalrConnection: HubConnection | undefined;
 
   displayedColumns: string[] = [
     'nodename',
@@ -71,24 +73,28 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.signalrConnection?.stop().then(() =>{
+      // eslint-disable-next-line no-console
+      console.info('SignalR connection is stopped');
+    });
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
 
   private CreateSignalrConnection(): void {
-    const connection = new signalR.HubConnectionBuilder()
+    this.signalrConnection = new signalR.HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Information)
       .withUrl(environment.baseUrl + 'monitoring-data')
       .build();
 
-    connection.start().then(function () {
+    this.signalrConnection.start().then(function () {
       // eslint-disable-next-line no-console
-      console.info('SignalR Connected!');
+      console.info('SignalR connected successfully');
     }).catch(function (err) {
       return console.error(err.toString());
     });
 
-    connection.on('onNewMonitoringDataAdded', (data: MonitoringData) => {
+    this.signalrConnection.on('onNewMonitoringDataAdded', (data: MonitoringData) => {
       const entity = {...data} as MonitoringDataEntity;
       this.dataSource.data.push(entity);
       this.dataSource.data = [...this.dataSource.data];

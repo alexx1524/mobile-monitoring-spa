@@ -6,6 +6,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, switchMap } from 'rxjs/operators';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { BehaviorSubject, empty, filter, interval, Observable, Subject, takeUntil} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @UntilDestroy()
 @Component({
@@ -47,7 +48,7 @@ export class NodeEventsComponent implements  AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // подписка на периодическое обновление
-    interval(2000)
+    interval(environment.nodeEventsFetchingInterval)
       .pipe(filter(_ => this.autoUpdate$.value))
       .pipe(filter(_ => this.node?.id !== null))
       .pipe(switchMap(_ => this.fetchNodeEvents()))
