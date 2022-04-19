@@ -1,13 +1,4 @@
 <div class="page_monitoring">
-  <mat-toolbar>
-      <span style="width: 100%">Узлы</span>
-      <mat-checkbox
-        (change)="autoUpdatedChanged($event)"
-        [checked]="(autoUpdate$ | async) ?? false"
-      >
-        Автообновление
-      </mat-checkbox>
-  </mat-toolbar>
   <mat-drawer-container class="drawer-container">
     <mat-drawer-content class="sidenav-content">
       <div class="example-loading-shade"
@@ -31,12 +22,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedNode=row"></tr>
       </table>
-
-      <mat-paginator [length]="resultsLength"
-                     [pageSizeOptions]="[10, 20, 50, 100]"
-                     showFirstLastButtons
-                     aria-label="Select page of periodic elements">
-      </mat-paginator>
     </mat-drawer-content>
     <mat-drawer class="right-panel" mode="side" position="end" opened>
       <app-node-events [setNode]="selectedNode" class="events-panel-content"></app-node-events>

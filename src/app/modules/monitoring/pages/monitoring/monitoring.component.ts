@@ -5,9 +5,12 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import * as moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { BehaviorSubject, filter, interval, merge, Subject, takeUntil } from 'rxjs';
-import { MonitoringDataSearchResult, MonitoringSearchCriteria } from '../../../../../generated-api/models';
+import { BehaviorSubject, filter, interval, Subject, takeUntil } from 'rxjs';
+import { MonitoringData } from '../../../../../generated-api/models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import * as signalR from '@microsoft/signalr';
+import { environment } from 'src/environments/environment';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @UntilDestroy()
@@ -19,8 +22,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class MonitoringComponent implements AfterViewInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   autoUpdate$ = new BehaviorSubject(true);
-
-  dataSource: MonitoringDataEntity[] = [];
+  dataSource = new MatTableDataSource<MonitoringDataEntity>();
 
   displayedColumns: string[] = [
     'nodename',
@@ -37,55 +39,20 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   constructor(private monitoringService: MonitoringService) { }
 
   ngAfterViewInit() {
-    // При изменении сортировки нужно переключить пагинацию на первую станицу
-    this.sort.sortChange
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => (this.paginator.pageIndex = 0));
-
-    // при изменении сортировки или страницы в пагинатор нужно запрашивать данные с сервера
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.fetchMonitoringData();
-      });
-
-    // подписка на периодическое обновление
-    interval(30000)
-      .pipe(filter(_ => this.autoUpdate$.value))
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(_ => {
-        this.fetchMonitoringData();
-      });
-
     this.fetchMonitoringData();
+    this.CreateSignalrConnection();
   }
 
   private fetchMonitoringData() {
-    const searchCriteria: MonitoringSearchCriteria = {
-      pageNumber: this.paginator.pageIndex + 1,
-      pageSize: this.paginator.pageSize,
-      sorting: {
-        fieldName: this.sort.active,
-        direction: this.sort.direction === 'asc' ? 0 : 1
-      }
-    };
-
     this.isLoadingResults = true;
     this.monitoringService
-      .postMonitoringSearch(searchCriteria)
+      .getMonitoringList()
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-        (response: MonitoringDataSearchResult) => {
+        (items: MonitoringData[]) => {
+          this.dataSource = new MatTableDataSource<MonitoringDataEntity>(items
+            .map((rawEntity) => Object.assign(new MonitoringDataEntity(), rawEntity)));
 
-          if (response && response.items) {
-            try {
-              this.dataSource = response.items
-                .map((rawEntity) => Object.assign(new MonitoringDataEntity(), rawEntity));
-              this.resultsLength = response.totalCount ?? 0;
-            } catch (e) {
-              console.error(e);
-            }
-          }
           this.isLoadingResults = false;
         },
         (errors) => {
@@ -106,5 +73,25 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  private CreateSignalrConnection(): void {
+    const connection = new signalR.HubConnectionBuilder()
+      .configureLogging(signalR.LogLevel.Information)
+      .withUrl(environment.baseUrl + 'monitoring-data')
+      .build();
+
+    connection.start().then(function () {
+      // eslint-disable-next-line no-console
+      console.info('SignalR Connected!');
+    }).catch(function (err) {
+      return console.error(err.toString());
+    });
+
+    connection.on('onNewMonitoringDataAdded', (data: MonitoringData) => {
+      const entity = {...data} as MonitoringDataEntity;
+      this.dataSource.data.push(entity);
+      this.dataSource.data = [...this.dataSource.data];
+    });
   }
 }
