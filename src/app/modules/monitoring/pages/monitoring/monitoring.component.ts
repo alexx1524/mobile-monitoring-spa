@@ -85,7 +85,7 @@ export class MonitoringComponent implements AfterViewInit, OnDestroy {
   private CreateSignalrConnection(): void {
     this.signalrConnection = new signalR.HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Information)
-      .withUrl(environment.baseUrl + 'monitoring-data')
+      .withUrl(environment.baseUrl + '/monitoring-data')
       .build();
 
     this.signalrConnection.start().then(function () {
