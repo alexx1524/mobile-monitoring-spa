@@ -2,10 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// @ts-ignore
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:7184',
-  nodeEventsFetchingInterval: 3000,
+  baseUrl: (<any>window)['env']['backendBaseUrl'] || 'https://localhost:7184',
+  nodeEventsFetchingInterval: (<any>window)['env']['nodeEventsFetchingInterval'] || 30000,
 };
 
 /*

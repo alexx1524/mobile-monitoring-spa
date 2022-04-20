@@ -8,4 +8,4 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY dist/infotecs.mobile.monitoring.spa /usr/share/nginx/html
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.production.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
